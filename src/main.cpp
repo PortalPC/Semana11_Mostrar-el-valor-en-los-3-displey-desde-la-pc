@@ -84,3 +84,15 @@ if (contador == 0) {
 }
 _delay_ms(100);
 }
+
+
+int main (void){
+  DDRD| = 0x0F;
+  DDRD| = 0xE0;
+  DDRD & =  ~(0x01);
+  config_USART();
+  sei();
+  while (1){
+    mostrar_display(display);
+  }
+}
