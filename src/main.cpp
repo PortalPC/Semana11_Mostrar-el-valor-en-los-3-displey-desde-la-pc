@@ -1,18 +1,46 @@
-#include <Arduino.h>
+#include <avr/io.h>
+#include <avr/interrupt.h>
+#define F_CPU 16000000UL
+#include <util/delay.h>
 
-// put function declarations here:
-int myFunction(int, int);
+unsigned char dato = 0;
+char contador = 0;
+unsigned char digito = 0;
+unsigned char digito_1 = 0;
+unsigned char digito_2 = 0;
+unsigned char digito_3 = 0;
+unsigned int display = 0;
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
-}
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void mostrar_display (int numero){
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  int centenas =  numero / 100;
+  int decenas = (numero / 10) % 10;
+    int unidades = numero % 10;
+
+    PORTD|= 0x80;
+    PORTD&= ~(0x40);
+    PORTD&= ~(0x20);
+
+    PORTB| = (centenas | 0x00);
+    PORTB& = (centenas | 0xF0);
+
+    _delay_ms(5);
+
+    PORTD&= ~(0x80);
+    PORTD|= 0x40;
+    PORTD&= ~(0x20);
+
+    PORTB|= (decenas | 0x00);
+    PORTB&= (decenas | 0xF0);
+
+    _delay_ms(5);
+
+    PORTB & = ~(0x80);
+    PORTD &= 0x40;
+    PORTD |= 0x20;
+
+    
+
+
 }
