@@ -37,10 +37,21 @@ void mostrar_display (int numero){
     _delay_ms(5);
 
     PORTB & = ~(0x80);
-    PORTD &= 0x40;
+    PORTD &= ~(0x40);
     PORTD |= 0x20;
 
+    PORTB| = (unidades | 0x00);
+    PORTB& = (unidades | 0xF0);
+
+    _delay_ms(5);
+
     
-
-
 }
+
+
+void config_USART (void){
+  UCSR0C|= (1 << UCSZ01) | (1 << UCSZ00);
+  UCSR0B|= (1 << RXEN0) | (1 << TXEN0)| (1 << RXCIE0);
+  UBRR0 = 103;
+}
+ISR (USART_RX_vect)
