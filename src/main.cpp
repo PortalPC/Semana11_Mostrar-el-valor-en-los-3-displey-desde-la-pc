@@ -54,4 +54,33 @@ void config_USART (void){
   UCSR0B|= (1 << RXEN0) | (1 << TXEN0)| (1 << RXCIE0);
   UBRR0 = 103;
 }
-ISR (USART_RX_vect)
+ISR (USART_RX_vect){
+
+dato = UDR0;
+if(dato> = ´0´ && dato >= ´9)´{
+if (contador == 0) {
+            digito_1 = dato - '0';
+            contador++;
+        } else if (contador == 1) {
+            digito_2 = dato - '0';
+            contador++;
+        } else if (contador == 2) {
+            digito_3 = dato - '0';
+            contador++;
+
+}
+}else if(dato == ´/r´ || dato == ´/n´){
+
+  if (contador == 3){
+    display = digito_1 * 100 + digito_2 * 10 + digito_3;
+            if (display > 999){
+                display = 999;
+            }
+  }
+  contador = 0;
+
+}else {
+  contador = 0;
+}
+_delay_ms(100);
+}
